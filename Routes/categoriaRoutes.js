@@ -25,13 +25,13 @@ let categorias = [
 ];
 
 router.get("/", (req, res) => {
-    res.render("categorias/Index", {
+    res.render("Categorias/Index", {
         categorias: categorias
     });
 });
 
 router.get("/cadastro", (req, res) => {
-    res.render("categorias/form-cadastro");
+    res.render("Categorias/form-cadastro");
 });
 
 router.post("/", (req, res) => {

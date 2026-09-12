@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 
 app.set(
     "views",
-    path.join(__dirname, "views")
+    path.join(__dirname, "Views")
 );
 
 
@@ -30,19 +30,19 @@ app.use(express.json());
 // ROTAS
 // ========================================
 
-const clienteRoutes = require("./routes/clienteRoutes");
+const clienteRoutes = require("./Routes/clienteRoutes");
 
 app.use("/cliente", clienteRoutes);
 
-const produtoRoutes = require("./routes/produtoRoutes");
+const produtoRoutes = require("./Routes/produtoRoutes");
 
 app.use("/produto", produtoRoutes);
 
-const fornecedorRoutes = require("./routes/fornecedorRoutes");
+const fornecedorRoutes = require("./Routes/fornecedorRoutes");
 
 app.use("/fornecedor", fornecedorRoutes);
 
-const categoriaRoutes = require("./routes/categoriaRoutes");
+const categoriaRoutes = require("./Routes/categoriaRoutes");
 
 app.use("/categoria", categoriaRoutes);
 
@@ -62,10 +62,12 @@ app.get("/", (req, res) => {
 // SERVIDOR
 // ========================================
 
-app.listen(3000, () => {
+if (require.main === module) {
+    const port = process.env.PORT || 3000;
 
-    console.log(
-        "Servidor rodando em http://localhost:3000"
-    );
+    app.listen(port, () => {
+        console.log(`Servidor rodando na porta ${port}`);
+    });
+}
 
-});
+module.exports = app;
