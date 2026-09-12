@@ -30,30 +30,30 @@ app.use(express.json());
 // ROTAS
 // ========================================
 
-const clienteRoutes = require("./Routes/clienteRoutes");
+const clienteRoutes = require("./routes/clienteRoutes");
 
 app.use("/cliente", clienteRoutes);
 
-const produtoRoutes = require("./Routes/produtoRoutes");
+const produtoRoutes = require("./routes/produtoRoutes");
 
 app.use("/produto", produtoRoutes);
 
-const fornecedorRoutes = require("./Routes/fornecedorRoutes");
+const fornecedorRoutes = require("./routes/fornecedorRoutes");
 
 app.use("/fornecedor", fornecedorRoutes);
 
-const categoriaRoutes = require("./Routes/categoriaRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
 
 app.use("/categoria", categoriaRoutes);
 
 
 // ========================================
-// ROTA PRINCIPAL - index.ejs do Views
+// ROTA PRINCIPAL - Index.ejs do Views
 // ========================================
 
 app.get("/", (req, res) => {
 
-    res.render("index");
+    res.render("Index");
 
 });
 
