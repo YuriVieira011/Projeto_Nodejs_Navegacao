@@ -57,4 +57,25 @@ router.post("/", (req, res) => {
     res.redirect("/produto");
 });
 
+//Excluir
+router.get("/excluir/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  produtos = produtos.filter(p => p.id !== id);
+  res.redirect("/produto");
+});
+
+//Editar - form - GET
+router.get("/editar/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  let produto = produtos.find(p => p.id === id);
+
+  if (!produto) {
+    return res.redirect("/produto");
+  }
+
+  res.render("produtos/editar", { produto });
+});
+
+//Editar - efetiva - POST
+
 module.exports = router;
