@@ -1,30 +1,69 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/"> Sistema de Cadastro</a>
+<nav class="navbar navbar-expand-lg navbar-dark accent">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+      <span><i class="bi bi-menu-button-fill"></i> CRUD<span style="color: rgb(255, 136, 0)">.ejs</span></span>
+    </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#menu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/"> Início </a>
-                </li>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav me-auto">
+        <!-- Início -->
+        <li class="nav-item">
+          <a class="nav-link icon-hover" href="/">
+            <i class="bi bi-house-door icon-outline"></i>
+            <i class="bi bi-house-door-fill icon-filled"></i> Início
+          </a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/cliente"> Clientes </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/produto"> Produtos </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/fornecedor"> Fornecedores </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/categoria"> Categorias </a>
-                </li>
-            </ul>
-        </div>
+        <!-- Clientes -->
+        <li class="nav-item">
+          <a class="nav-link icon-hover" href="/cliente">
+            <i class="bi bi-people icon-outline"></i>
+            <i class="bi bi-people-fill icon-filled"></i> Clientes
+          </a>
+        </li>
+
+        <!-- Produtos -->
+        <li class="nav-item">
+          <a class="nav-link icon-hover" href="/produto">
+            <i class="bi bi-bag icon-outline"></i>
+            <i class="bi bi-bag-fill icon-filled"></i> Produtos
+          </a>
+        </li>
+
+        <!-- Fornecedores -->
+        <li class="nav-item">
+          <a class="nav-link icon-hover" href="/fornecedor">
+            <i class="bi bi-briefcase icon-outline"></i>
+            <i class="bi bi-briefcase-fill icon-filled"></i> Fornecedores
+          </a>
+        </li>
+
+        <!-- Categorias -->
+        <li class="nav-item">
+          <a class="nav-link icon-hover" href="/categoria">
+            <i class="bi bi-menu-button-wide icon-outline"></i>
+            <i class="bi bi-menu-button-wide-fill icon-filled"></i> Categorias
+          </a>
+        </li>
+      </ul>
+      <button
+        class="btn btn-outline-light"
+        id="theme-toggle"
+        type="button"
+        aria-pressed="false"
+      >
+        <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+        <span>Modo escuro</span>
+      </button>
     </div>
+  </div>
 </nav>

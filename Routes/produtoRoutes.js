@@ -33,6 +33,8 @@ let produtos = [
   }
 ];
 
+let ultimoId = 3; //Quantidade de produtos iniciais
+
 router.get("/", (req, res) => {
     res.render("produtos/Index", {
         produtos: produtos
@@ -45,8 +47,11 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { nome, descricao, preco, estoque, categoria } = req.body;
+
+    ultimoId++
+
     const novoProduto = {
-        id: produtos.length + 1,
+        id: ultimoId,
         nome: nome,
         descricao: descricao,
         preco: preco,
@@ -77,5 +82,25 @@ router.get("/editar/:id", (req, res) => {
 });
 
 //Editar - efetiva - POST
+router.post("/editar/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  
+  // Encontra o índice ou o objeto do produto no array
+  let produto = produtos.find(c => c.id === id);
+
+  if (!produto) {
+    return res.redirect("/produto");
+  }
+
+  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
+  produto.nome = req.body.nome;
+  produto.descricao = req.body.descricao;
+  produto.preco = req.body.preco;
+  produto.estoque = req.body.estoque;
+  produto.categoria = req.body.categoria;
+
+  // Redireciona de volta para a listagem de produtos
+  res.redirect("/produto");
+});
 
 module.exports = router;

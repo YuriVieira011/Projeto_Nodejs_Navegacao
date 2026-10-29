@@ -29,6 +29,7 @@ let clientes = [
     cidade: "Belo Horizonte"
   }
 ];
+let ultimoId = 3; //Quantidade de clientes iniciais
 
 router.get("/", (req, res) => {
     res.render("clientes/Index", {
@@ -42,8 +43,11 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { nome, email, telefone, cidade } = req.body;
+
+    ultimoId++
+
     const novoCliente = {
-        id: clientes.length + 1,
+        id: ultimoId,
         nome: nome,
         email: email,
         telefone: telefone,
@@ -73,5 +77,24 @@ router.get("/editar/:id", (req, res) => {
 });
 
 //Editar - efetiva - POST
+router.post("/editar/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  
+  // Encontra o índice ou o objeto do cliente no array
+  let cliente = clientes.find(c => c.id === id);
+
+  if (!cliente) {
+    return res.redirect("/cliente");
+  }
+
+  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
+  cliente.nome = req.body.nome;
+  cliente.email = req.body.email;
+  cliente.telefone = req.body.telefone;
+  cliente.cidade = req.body.cidade;
+
+  // Redireciona de volta para a listagem de clientes
+  res.redirect("/cliente");
+});
 
 module.exports = router;

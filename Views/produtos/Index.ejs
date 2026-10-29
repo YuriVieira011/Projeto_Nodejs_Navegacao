@@ -10,14 +10,15 @@
                     </p>
                 </div>
                 <a href="/produto/cadastro" class="btn btn-primary">
-                    + Novo produto
+                    <i class="bi bi-bag-plus"></i> Novo produto
                 </a>
             </div>
-            <div class="card shadow-sm">
+            <%- include("../Partials/sort-controls") %>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover
-                              align-middle">
+                              align-middle" data-sortable-table>
                             <thead class="table-dark">
                                 <tr>
                                     <th>ID</th>
@@ -31,7 +32,7 @@
                             </thead>
                             <tbody>
                                 <% produtos.forEach(mostrar=> { %>
-                                    <tr>
+                                    <tr data-sort-name="<%= mostrar.nome %>" data-sort-id="<%= mostrar.id %>">
                                         <td>
                                             <%= mostrar.id %>
                                         </td>
@@ -51,10 +52,10 @@
                                             <%= mostrar.categoria %>
                                         </td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm"
-                                                href="/produto/editar/<%= mostrar.id%>">Editar</a>
+                                            <a class="btn btn-orange btn-sm"
+                                                href="/produto/editar/<%= mostrar.id%>"><i class="bi bi-pen"></i> Editar</a>
                                             <a class="btn btn-danger btn-sm" href="/produto/excluir/<%= mostrar.id%>"
-                                                onclick="return confirm('Deseja excluir este produto?')">Excluir</a>
+                                                onclick="return confirm('Deseja excluir este produto?')"><i class="bi bi-trash2"></i> Excluir</a>
                                         </td>
                                     </tr>
                                     <% }) %>

@@ -1,6 +1,59 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
+<script>
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIcon = themeToggle.querySelector("i");
+  const themeLabel = themeToggle.querySelector("span");
 
+  function updateThemeToggle() {
+    const isDark = document.documentElement.dataset.bsTheme === "dark";
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeIcon.className = isDark ? "bi bi-sun-fill" : "bi bi-moon-stars-fill";
+    themeLabel.textContent = isDark ? "Modo claro" : "Modo escuro";
+  }
+
+  updateThemeToggle();
+  themeToggle.addEventListener("click", () => {
+    const nextTheme =
+      document.documentElement.dataset.bsTheme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.bsTheme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    updateThemeToggle();
+  });
+
+  document.querySelectorAll("[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const table = button.closest(".container").querySelector("[data-sortable-table]");
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+
+      rows.sort((a, b) => {
+        if (button.dataset.sort === "name") {
+          return a.dataset.sortName.localeCompare(b.dataset.sortName, "pt-BR", {
+            sensitivity: "base",
+            numeric: true,
+          });
+        }
+
+        const difference = Number(a.dataset.sortId) - Number(b.dataset.sortId);
+        return button.dataset.sort === "id-asc" ? difference : -difference;
+      });
+
+      const sortedRows = document.createDocumentFragment();
+      rows.forEach((row) => sortedRows.appendChild(row));
+      tbody.appendChild(sortedRows);
+
+      button.parentElement.querySelectorAll("[data-sort]").forEach((sortButton) => {
+        const isActive = sortButton === button;
+        sortButton.classList.toggle("active", isActive);
+        sortButton.setAttribute("aria-pressed", String(isActive));
+      });
+    });
+  });
+</script>
+<footer>
+  
+</footer>
 </body>
 
 </html>

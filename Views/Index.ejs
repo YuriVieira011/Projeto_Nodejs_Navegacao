@@ -1,22 +1,103 @@
-<%- include("Partials/header") %>
-<%- include("Partials/nav") %>
-<div class="container mt-5">
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-4">
-            <h1 class="display-5 fw-bold">Sistema de Navegação</h1>
+<%- include("Partials/header") %> <%- include("Partials/nav") %>
 
-            <p class="col-md-8 fs-5">
-                Nome: Yuri Vieira de Oliveira, 2°DS - AMS
-            </p>
-
-            <a href="/cliente" class="btn btn-primary btn-lg"> Ver clientes </a>
-            <br><br>
-            <a href="/produto" class="btn btn-primary btn-lg"> Ver produtos </a>
-            <br><br>
-            <a href="/fornecedor" class="btn btn-primary btn-lg"> Ver fornecedores </a>
-            <br><br>
-            <a href="/categoria" class="btn btn-primary btn-lg"> Ver categorias </a>
-        </div>
+<div class="container mt-5 mb-5">
+  <!-- Cabeçalho / Apresentação -->
+  <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border">
+    <div class="container-fluid py-2">
+      <h1 class="display-5 fw-bold text-dark">Painel de Controle</h1>
+      <p class="col-md-8 fs-5 text-secondary">
+        Sistema de CRUD completo. Aluno:
+        <strong>Yuri Vieira de Oliveira</strong> (2°DS - AMS).
+      </p>
+      <hr class="my-4" />
+      <p class="mb-0 text-muted">
+        Selecione abaixo o módulo que deseja gerenciar:
+      </p>
     </div>
+  </div>
+
+  <!-- Grid de Cards dos Módulos -->
+  <div class="row g-4">
+    <!-- Clientes -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 card-hover">
+        <div
+          class="card-body text-center p-4 d-flex flex-column justify-content-between"
+        >
+          <div>
+            <div class="mb-3" style="font-size: 2.5rem; color: #7a36f8">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <h4 class="card-title fw-bold">Clientes</h4>
+            <p class="card-text text-muted small">
+              Gerencie o cadastro de clientes do sistema.
+            </p>
+          </div>
+          <a href="/cliente" class="btn accent w-100 mt-3">Acessar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produtos -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 card-hover">
+        <div
+          class="card-body text-center p-4 d-flex flex-column justify-content-between"
+        >
+          <div>
+            <div class="mb-3" style="font-size: 2.5rem; color: #7a36f8">
+              <i class="bi bi-bag-fill"></i>
+            </div>
+            <h4 class="card-title fw-bold">Produtos</h4>
+            <p class="card-text text-muted small">
+              Controle de estoque, preços e produtos.
+            </p>
+          </div>
+          <a href="/produto" class="btn accent w-100 mt-3">Acessar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fornecedores -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 card-hover">
+        <div
+          class="card-body text-center p-4 d-flex flex-column justify-content-between"
+        >
+          <div>
+            <div class="mb-3" style="font-size: 2.5rem; color: #7a36f8">
+              <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <h4 class="card-title fw-bold">Fornecedores</h4>
+            <p class="card-text text-muted small">
+              Gerencie parceiros e fornecedores.
+            </p>
+          </div>
+          <a href="/fornecedor" class="btn accent w-100 mt-3">Acessar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categorias -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 card-hover">
+        <div
+          class="card-body text-center p-4 d-flex flex-column justify-content-between"
+        >
+          <div>
+            <div class="mb-3" style="font-size: 2.5rem; color: #7a36f8">
+              <i class="bi bi-menu-button-wide-fill"></i>
+            </div>
+            <h4 class="card-title fw-bold">Categorias</h4>
+            <p class="card-text text-muted small">
+              Organize os produtos por categorias.
+            </p>
+          </div>
+          <a href="/categoria" class="btn accent w-100 mt-3">Acessar</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <%- include("Partials/footer") %>

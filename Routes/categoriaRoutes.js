@@ -23,6 +23,7 @@ let categorias = [
     descricao: "Roupas e acessórios"
   }
 ];
+let ultimoId = 3; //Quantidade de categorias iniciais
 
 router.get("/", (req, res) => {
     res.render("Categorias/Index", {
@@ -36,8 +37,11 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { nome, descricao } = req.body;
+
+    ultimoId++ //Adiciona +1 para o número de categorias
+  
     const novaCategoria = {
-        id: categorias.length + 1,
+        id: ultimoId,
         nome: nome,
         descricao: descricao
     };
@@ -65,5 +69,22 @@ router.get("/editar/:id", (req, res) => {
 });
 
 //Editar - efetiva - POST
+router.post("/editar/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  
+  // Encontra o índice ou o objeto do categoria no array
+  let categoria = categorias.find(c => c.id === id);
+
+  if (!categoria) {
+    return res.redirect("/categoria");
+  }
+
+  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
+  categoria.nome = req.body.nome;
+  categoria.descricao = req.body.descricao;
+
+  // Redireciona de volta para a listagem de categorias
+  res.redirect("/categoria");
+});
 
 module.exports = router;

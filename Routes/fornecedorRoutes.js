@@ -33,6 +33,8 @@ let fornecedores = [
   }
 ];
 
+let ultimoId = 3; //Quantidade de fornecedores iniciais
+
 router.get("/", (req, res) => {
     res.render("fornecedores/Index", {
         fornecedores: fornecedores
@@ -45,8 +47,11 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { razaosocial, cnpj, email, telefone, cidade } = req.body;
+
+    ultimoId++
+
     const novoFornecedor = {
-        id: fornecedores.length + 1,
+        id: ultimoId,
         razaosocial: razaosocial,
         cnpj: cnpj,
         email: email,
@@ -77,5 +82,25 @@ router.get("/editar/:id", (req, res) => {
 });
 
 //Editar - efetiva - POST
+router.post("/editar/:id", (req, res) => {
+  let id = parseInt(req.params.id);
+  
+  // Encontra o índice ou o objeto do fornecedor no array
+  let fornecedor = fornecedores.find(c => c.id === id);
+
+  if (!fornecedor) {
+    return res.redirect("/fornecedor");
+  }
+
+  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
+  fornecedor.razaosocial = req.body.razaosocial;
+  fornecedor.cnpj = req.body.cnpj;
+  fornecedor.email = req.body.email;
+  fornecedor.telefone = req.body.telefone;
+  fornecedor.cidade = req.body.cidade;
+
+  // Redireciona de volta para a listagem de fornecedores
+  res.redirect("/fornecedor");
+});
 
 module.exports = router;
