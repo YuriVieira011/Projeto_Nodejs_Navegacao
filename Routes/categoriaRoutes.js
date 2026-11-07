@@ -1,33 +1,13 @@
 const express = require("express");
+const { readRecords, writeRecords } = require("../utils/jsonStorage");
 
 const router = express.Router();
 
-// ========================================
-// DADOS
-// ========================================
-
-let categorias = [
-  {
-    id: 1,
-    nome: "TI",
-    descricao: "Produtos e serviços de informática"
-  },
-  {
-    id: 2,
-    nome: "Eletrônicos",
-    descricao: "Produtos eletrônicos"
-  },
-  {
-    id: 3,
-    nome: "Roupas",
-    descricao: "Roupas e acessórios"
-  }
-];
-let ultimoId = 3; //Quantidade de categorias iniciais
+const arquivoCategorias = "categorias.json";
 
 router.get("/", (req, res) => {
     res.render("Categorias/Index", {
-        categorias: categorias
+        categorias: readRecords(arquivoCategorias)
     });
 });
 
@@ -37,29 +17,30 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { nome, descricao } = req.body;
+    const categorias = readRecords(arquivoCategorias);
 
-    ultimoId++ //Adiciona +1 para o número de categorias
-  
     const novaCategoria = {
-        id: ultimoId,
+        id: categorias.reduce((maiorId, categoria) => Math.max(maiorId, categoria.id), 0) + 1,
         nome: nome,
         descricao: descricao
     };
     categorias.push(novaCategoria);
+    writeRecords(arquivoCategorias, categorias);
     res.redirect("/categoria");
 });
 
 //Excluir
 router.get("/excluir/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  categorias = categorias.filter(c => c.id !== id);
+  const id = parseInt(req.params.id, 10);
+  const categorias = readRecords(arquivoCategorias).filter(categoria => categoria.id !== id);
+  writeRecords(arquivoCategorias, categorias);
   res.redirect("/categoria");
 });
 
 //Editar - form - GET
 router.get("/editar/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  let categoria = categorias.find(c => c.id === id);
+  const id = parseInt(req.params.id, 10);
+  const categoria = readRecords(arquivoCategorias).find(categoria => categoria.id === id);
 
   if (!categoria) {
     return res.redirect("/categoria");
@@ -70,20 +51,18 @@ router.get("/editar/:id", (req, res) => {
 
 //Editar - efetiva - POST
 router.post("/editar/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  
-  // Encontra o índice ou o objeto do categoria no array
-  let categoria = categorias.find(c => c.id === id);
+  const id = parseInt(req.params.id, 10);
+  const categorias = readRecords(arquivoCategorias);
+  const categoria = categorias.find(categoria => categoria.id === id);
 
   if (!categoria) {
     return res.redirect("/categoria");
   }
 
-  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
   categoria.nome = req.body.nome;
   categoria.descricao = req.body.descricao;
 
-  // Redireciona de volta para a listagem de categorias
+  writeRecords(arquivoCategorias, categorias);
   res.redirect("/categoria");
 });
 

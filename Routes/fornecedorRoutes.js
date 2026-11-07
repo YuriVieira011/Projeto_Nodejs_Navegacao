@@ -1,43 +1,13 @@
 const express = require("express");
+const { readRecords, writeRecords } = require("../utils/jsonStorage");
 
 const router = express.Router();
 
-// ========================================
-// DADOS
-// ========================================
-
-let fornecedores = [
-  {
-    id: 1,
-    razaosocial: "Banco S.A.",
-    cnpj: "00000000000001",
-    email: "banco@example.com",
-    telefone: "(11) 1111-1111",
-    cidade: "São Paulo"
-  },
-  {
-    id: 2,
-    razaosocial: "Empresa Ltda.",
-    cnpj: "00000000000002",
-    email: "empresa@example.com",
-    telefone: "(11) 2222-2222",
-    cidade: "Rio de Janeiro"
-  },
-  {
-    id: 3,
-    razaosocial: "Fornecedor S.A.",
-    cnpj: "00000000000003",
-    email: "fornecedor@example.com",
-    telefone: "(11) 3333-3333",
-    cidade: "Belo Horizonte"
-  }
-];
-
-let ultimoId = 3; //Quantidade de fornecedores iniciais
+const arquivoFornecedores = "fornecedores.json";
 
 router.get("/", (req, res) => {
     res.render("fornecedores/Index", {
-        fornecedores: fornecedores
+        fornecedores: readRecords(arquivoFornecedores)
     });
 });
 
@@ -47,11 +17,10 @@ router.get("/cadastro", (req, res) => {
 
 router.post("/", (req, res) => {
     const { razaosocial, cnpj, email, telefone, cidade } = req.body;
-
-    ultimoId++
+    const fornecedores = readRecords(arquivoFornecedores);
 
     const novoFornecedor = {
-        id: ultimoId,
+        id: fornecedores.reduce((maiorId, fornecedor) => Math.max(maiorId, fornecedor.id), 0) + 1,
         razaosocial: razaosocial,
         cnpj: cnpj,
         email: email,
@@ -59,20 +28,22 @@ router.post("/", (req, res) => {
         cidade: cidade
     };
     fornecedores.push(novoFornecedor);
+    writeRecords(arquivoFornecedores, fornecedores);
     res.redirect("/fornecedor");
 });
 
 //Excluir
 router.get("/excluir/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  fornecedores = fornecedores.filter(f => f.id !== id);
+  const id = parseInt(req.params.id, 10);
+  const fornecedores = readRecords(arquivoFornecedores).filter(fornecedor => fornecedor.id !== id);
+  writeRecords(arquivoFornecedores, fornecedores);
   res.redirect("/fornecedor");
 });
 
 //Editar - form - GET
 router.get("/editar/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  let fornecedor = fornecedores.find(f => f.id === id);
+  const id = parseInt(req.params.id, 10);
+  const fornecedor = readRecords(arquivoFornecedores).find(fornecedor => fornecedor.id === id);
 
   if (!fornecedor) {
     return res.redirect("/fornecedor");
@@ -83,23 +54,21 @@ router.get("/editar/:id", (req, res) => {
 
 //Editar - efetiva - POST
 router.post("/editar/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-  
-  // Encontra o índice ou o objeto do fornecedor no array
-  let fornecedor = fornecedores.find(c => c.id === id);
+  const id = parseInt(req.params.id, 10);
+  const fornecedores = readRecords(arquivoFornecedores);
+  const fornecedor = fornecedores.find(fornecedor => fornecedor.id === id);
 
   if (!fornecedor) {
     return res.redirect("/fornecedor");
   }
 
-  // Atualiza as propriedades com os dados enviados pelo formulário (req.body)
   fornecedor.razaosocial = req.body.razaosocial;
   fornecedor.cnpj = req.body.cnpj;
   fornecedor.email = req.body.email;
   fornecedor.telefone = req.body.telefone;
   fornecedor.cidade = req.body.cidade;
 
-  // Redireciona de volta para a listagem de fornecedores
+  writeRecords(arquivoFornecedores, fornecedores);
   res.redirect("/fornecedor");
 });
 

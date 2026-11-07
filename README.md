@@ -268,13 +268,13 @@ Faça com que ,ao passar o mouse em cima, os botões do Index.ejs aumentem de ta
 - Ícones no Navbar;
 
 - **Prints da Conversa com a IA**:
-[Todos os prints estão na pasta Capturas_de_tela]
+[Todos os prints estão na pasta img_estilizacao/Capturas_de_tela]
 
 - **Antes da Reestilização**:
-[Todos os prints estão na pasta Pre_estilizacao]
+[Todos os prints estão na pasta img_estilizacao/Pre_estilizacao]
 
 - **Depois da Reestilização**:
-[Todos os prints na pasta Pos_estilizacao]
+[Todos os prints na pasta img_estilizacao/Pos_estilizacao]
 
 - **Link da Aplicação**:
 https://nodeprojnav.vercel.app/
