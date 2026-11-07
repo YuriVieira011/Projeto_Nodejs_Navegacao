@@ -20,6 +20,8 @@ Trabalho-Navegação
         ⨽ [Imagens do site após a estilização]
     ⨽ Pre_estilizacao/
         ⨽ [Imagens do site antes da estilização]
+⨽ img_migracao/
+    ⨽ [Imagens dos prompts e respostas usadas para a migração para JSON]
 ⨽ node_modules/
     ⨽ [Arquivos, pastas e bibliotecas de terceiros que permite o funcionamento do projeto]
 ⨽ Routes/
@@ -162,6 +164,8 @@ Trabalho-Navegação
 
 - Uso da Inteligência Artificial
     A IA utiliza foi o Copilot Github do VS Code, sendo usada principalmente para teste e para ajudar na migração para JSON;
+
+    - Todas as imagens dos prompts e respostas da IA estão em img_migracao/
 
 - Alterações Realizadas
     - Pasta "Data" adicionada para armazenar os arquivos JSON de forma organizada e que mantém as alterações feitas mesmo após desligar ou reiniciar o sistema;
